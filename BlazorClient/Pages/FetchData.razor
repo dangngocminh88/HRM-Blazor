@@ -1,5 +1,5 @@
 ﻿@page "/fetchdata"
-@inject HttpClient Http
+@using BlazorClient.Components
 
 <h1>Weather forecast</h1>
 
@@ -7,7 +7,7 @@
 
 @if (forecasts == null)
 {
-    <p><em>Loading...</em></p>
+    <LoadingIndicator></LoadingIndicator>
 }
 else
 {

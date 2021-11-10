@@ -19,6 +19,9 @@ namespace DB_CSharp
             modelBuilder.Entity<IdentityUserLogin<Guid>>().ToTable("Adm_AppUserLogins").HasKey(x => x.UserId);
             modelBuilder.Entity<IdentityRoleClaim<Guid>>().ToTable("Adm_AppRoleClaims");
             modelBuilder.Entity<IdentityUserToken<Guid>>().ToTable("Adm_AppUserTokens").HasKey(x => x.UserId);
+
+            modelBuilder.ApplyConfiguration(new ProjectConfiguration());
         }
+        public DbSet<Project> ProjectDB { get; set; }
     }
 }

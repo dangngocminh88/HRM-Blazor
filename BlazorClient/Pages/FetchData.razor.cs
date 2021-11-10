@@ -1,16 +1,27 @@
-﻿using System;
-using System.Net.Http.Json;
+﻿using BlazorClient.Services;
+using DB_CSharp.Entities;
+using DB_CSharp.Models.Commons;
+using Microsoft.AspNetCore.Components;
+using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace BlazorClient.Pages
 {
     public partial class FetchData
     {
+        [Inject] private IClient Client { get; set; }
         private WeatherForecast[] forecasts;
 
         protected override async Task OnInitializedAsync()
         {
-            forecasts = await Http.GetFromJsonAsync<WeatherForecast[]>("sample-data/weather.json");
+            ApiResult<List<Project>> result = await Client.GetListAsync<Project>("/api/ProjectList/Search");
+            if (result.IsSuccessed)
+            {
+                List<Project> projectList = result.ResultObj;
+                string a = projectList[0].ProjectName;
+                short i = projectList[0].Id;
+            }
         }
 
         public class WeatherForecast
