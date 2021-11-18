@@ -62,7 +62,7 @@ namespace Service.Services.Users
             }
             var claims = new[]
             {
-                new Claim(ClaimTypes.Name, request.UserName)
+                new Claim(ClaimTypes.NameIdentifier, user.Id.ToString())
             };
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["Tokens:Key"]));
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);

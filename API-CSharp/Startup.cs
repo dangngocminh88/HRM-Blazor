@@ -40,6 +40,7 @@ namespace API_CSharp
             services.AddTransient<UserManager<AppUser>, UserManager<AppUser>>();
             services.AddTransient<SignInManager<AppUser>, SignInManager<AppUser>>();
             services.AddTransient<IProjectListService, ProjectListService>();
+            services.AddTransient<IProjectDetailService, ProjectDetailService>();
             services.AddControllers()
                 .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<UserLoginRequestValidator>());
             services.AddTransient<IUserService, UserService>();

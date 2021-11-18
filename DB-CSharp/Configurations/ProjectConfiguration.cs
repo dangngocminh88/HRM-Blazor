@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace DB_CSharp.Configurations
 {
@@ -11,6 +12,7 @@ namespace DB_CSharp.Configurations
         {
             builder.ToTable("Set_Project");
             builder.HasKey(x => x.Id);
+            builder.Property(x => x.Id).UseIdentityColumn();
             builder.Property(x => x.ProjectName).IsRequired().HasMaxLength(50);
             builder.Property(x => x.Active).IsRequired().HasDefaultValue(false);
             builder.Property(x => x.ChangeDate).IsRequired().HasDefaultValue(DateTime.Now);
