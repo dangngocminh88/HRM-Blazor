@@ -1,11 +1,11 @@
 ﻿using DB_CSharp.Entities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Service.Interfaces.Settings.Projects;
+using Service.Services;
 using System.Security.Claims;
 using System.Threading.Tasks;
 
-namespace API_CSharp.Controllers.Projects
+namespace API_CSharp.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
@@ -16,8 +16,8 @@ namespace API_CSharp.Controllers.Projects
         {
             _service = projectDetailService;
         }
-        [HttpGet("Init/{id:long}")]
-        public async Task<IActionResult> Init([FromRoute]long id)
+        [HttpGet("Init/{id:int}")]
+        public async Task<IActionResult> Init([FromRoute]short id)
         {
             var result = await _service.Init(id);
             if (result.IsSuccessed)
@@ -27,7 +27,7 @@ namespace API_CSharp.Controllers.Projects
             return BadRequest(result.Message);
         }
         [HttpPost("Save")]
-        [Authorize]
+        //[Authorize]
         public async Task<IActionResult> Save([FromBody]Project request)
         {
             string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);

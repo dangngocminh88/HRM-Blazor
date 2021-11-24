@@ -14,7 +14,8 @@ namespace BlazorClient
             var builder = WebAssemblyHostBuilder.CreateDefault(args);
             builder.RootComponents.Add<App>("#app");
 
-            builder.Services.AddTransient<IClient, Client>();
+            builder.Services.AddScoped<SpinnerService>();
+            builder.Services.AddTransient<IApiClient, ApiClient>();
 
             string baseAddress = "https://localhost:5001";
             builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(baseAddress) });

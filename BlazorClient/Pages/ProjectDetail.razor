@@ -1,0 +1,27 @@
+﻿@page "/ProjectDetail/{id?}"
+@using Blazored.FluentValidation
+
+<h3>ProjectDetail</h3>
+<EditForm Model="@project" OnValidSubmit="@Save">
+    <FluentValidationValidator @ref="_fluentValidationValidator" />
+    <ValidationSummary />
+    <div class="form-group row">
+        <label for="ProjectName" class="col-md-2 col-form-label">Project Name</label>
+        <div class="col-md-10">
+            <InputText class="form-control" placeholder="Project Name" @bind-Value="project.ProjectName" />
+            <ValidationMessage For="@(() => project.ProjectName)" />
+        </div>
+    </div>
+    <div class="row mt-2">
+        <div class="form-check col-md-10 offset-md-2">
+            <InputCheckbox class="form-check-input" id="Active" checked="@project.Active" @bind-Value="project.Active" />
+            <label class="form-check-label" for="Active">Active</label>
+        </div>
+    </div>
+    <div class="btn-group float-end mt-2" role="group">
+        <button type="submit" class="btn btn-primary" disabled="@loading">
+            <i class="fas fa-save"></i> Save
+        </button>
+        <button type="button" class="btn btn-danger" disabled="@loading" @onclick="NavigateToProjectList">Cancel</button>
+    </div>
+</EditForm>

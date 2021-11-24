@@ -1,8 +1,16 @@
-﻿using DB_CSharp.Models.Users;
+﻿using DB_CSharp.Models;
 using FluentValidation;
 
-namespace DB_CSharp.Validators.Users
+namespace DB_CSharp.Validators
 {
+    public class UserLoginRequestValidator : AbstractValidator<UserLoginRequest>
+    {
+        public UserLoginRequestValidator()
+        {
+            RuleFor(x => x.UserName).NotEmpty().WithMessage("User Name is required");
+            RuleFor(x => x.Password).NotEmpty().WithMessage("Password is required");
+        }
+    }
     public class UserRegisterRequestValidator : AbstractValidator<UserRegisterRequest>
     {
         public UserRegisterRequestValidator()

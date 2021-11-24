@@ -1,7 +1,7 @@
-﻿using DB_CSharp.Models.Users;
+﻿using DB_CSharp.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Service.Interfaces.Users;
+using Service.Services;
 using System.Threading.Tasks;
 
 namespace API_CSharp.Controllers

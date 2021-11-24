@@ -1,0 +1,42 @@
+﻿@inject BlazorClient.Services.SpinnerService SpinnerService
+
+<div class="modal @ModalClass" tabindex="-1" role="dialog" style="display:@ModalDisplay">
+    <div class="modal-dialog modal-sm modal-dialog-centered position-relative" role="document">
+        <div class="modal-content border-0 bg-transparent" style="width: 48px">
+            <span class="fa fa-spinner fa-spin fa-3x"></span>
+        </div>
+    </div>
+</div>
+@if (ShowBackdrop)
+{
+    <div class="modal-backdrop fade show"></div>
+}
+@code
+{
+    public Guid Guid = Guid.NewGuid();
+    public string ModalDisplay { get; set; } = "none;";
+    public string ModalClass { get; set; } = "";
+    public bool ShowBackdrop { get; set; } = false;
+
+    protected override void OnInitialized()
+    {
+        SpinnerService.OnShow += ShowSpinner;
+        SpinnerService.OnHide += HideSpinner;
+    }
+
+    public void ShowSpinner()
+    {
+        ModalDisplay = "block;";
+        ModalClass = "Show";
+        ShowBackdrop = true;
+        StateHasChanged();
+    }
+
+    public void HideSpinner()
+    {
+        ModalDisplay = "none";
+        ModalClass = "";
+        ShowBackdrop = false;
+        StateHasChanged();
+    }
+}

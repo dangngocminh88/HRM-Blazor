@@ -1,10 +1,9 @@
 ﻿using DB_CSharp.Entities;
+using DB_CSharp.Models;
 using DB_CSharp.Models.Commons;
-using DB_CSharp.Models.Users;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
-using Service.Interfaces.Users;
 using System;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
@@ -12,8 +11,13 @@ using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Service.Services.Users
+namespace Service.Services
 {
+    public interface IUserService
+    {
+        Task<ApiResult<bool>> Register(UserRegisterRequest request);
+        Task<ApiResult<string>> Login(UserLoginRequest request);
+    }
     public class UserService : IUserService
     {
         private readonly UserManager<AppUser> userManager;

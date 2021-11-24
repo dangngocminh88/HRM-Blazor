@@ -1,0 +1,55 @@
+﻿@page "/ProjectList"
+
+<h3>Project List</h3>
+
+<EditForm Model="@projectListSearchRequest">
+    <div class="row">
+        <div class="col-md">
+            <label>Project Name</label>
+            <InputText class="form-control" @bind-Value="projectListSearchRequest.ProjectName"></InputText>
+        </div>
+        <div class="col-md">
+            <label>Active</label>
+            <InputSelect class="form-control" @bind-Value="projectListSearchRequest.Active">
+                <option value="2">All</option>
+                <option value="0">Inactive</option>
+                <option value="1">Active</option>
+            </InputSelect>
+        </div>
+    </div>
+</EditForm>
+<div class="btn-group float-end mt-2" role="group">
+    <button type="button" class="btn btn-success" @onclick="Search">
+        <i class="fas fa-search"></i> Search
+    </button>
+    <button type="button" class="btn btn-primary" @onclick="NavigateToProjectDetail">
+        <i class="fas fa-plus"></i> Add new
+    </button>
+</div>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Project Name</th>
+            <th>Active</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (projects != null)
+        {
+            @foreach (var project in projects)
+            {
+        <tr>
+            <td>@project.ProjectName</td>
+            <td>
+                <input type="checkbox" class="form-check-input" disabled checked="@project.Active">
+            </td>
+            <td>
+                <a href="/ProjectDetail/@project.Id"><i class="fas fa-edit text-primary"></i></a>
+                <button type="button" class="btn btn-link p-0" @onclick="()=> Delete(project.Id)"><i class="fas fa-trash-alt text-danger"></i></button>
+            </td>
+        </tr>
+            }
+        }
+    </tbody>
+</table>

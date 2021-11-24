@@ -1,6 +1,6 @@
 using DB_CSharp;
 using DB_CSharp.Entities;
-using DB_CSharp.Validators.Users;
+using DB_CSharp.Validators;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -13,10 +13,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
-using Service.Interfaces.Settings.Projects;
-using Service.Interfaces.Users;
-using Service.Services.Settings.Projects;
-using Service.Services.Users;
+using Service.Services;
 using System.Collections.Generic;
 
 namespace API_CSharp
@@ -107,6 +104,7 @@ namespace API_CSharp
                 options.AddPolicy("CorsPolicy",
                     builder => builder
                         .SetIsOriginAllowed((host) => true)
+                        .WithOrigins("https://localhost:5000")
                         .AllowAnyMethod()
                         .AllowAnyHeader()
                         .AllowCredentials());
@@ -124,9 +122,9 @@ namespace API_CSharp
             }
 
             app.UseHttpsRedirection();
+            app.UseCors("CorsPolicy");
             app.UseAuthentication();
             app.UseRouting();
-            app.UseCors("CorsPolicy");
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
